@@ -12,17 +12,13 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-
 import com.bumptech.glide.Glide;
-import com.bumptech.glide.load.resource.bitmap.CenterCrop;
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
 import com.bumptech.glide.request.RequestOptions;
 import com.project.sooraj.qunoidapp.ImageViewActivity;
 import com.project.sooraj.qunoidapp.ProfileViewAcitvity;
 import com.project.sooraj.qunoidapp.R;
 import com.project.sooraj.qunoidapp.model.UnSplash;
-import com.project.sooraj.qunoidapp.model.User;
-
 
 import java.util.List;
 
@@ -64,33 +60,35 @@ public class ProfileRecyclerAdapter extends RecyclerView.Adapter<ProfileRecycler
 
 
         if (!checkNull(unSplash.getUser().getProfileImage().getLarge())) {
-        Glide.with(context).load(unSplash.getUser().getProfileImage().getLarge()).apply(new RequestOptions().transform(new RoundedCorners(16))).into(holder.profile);}
+            Glide.with(context).load(unSplash.getUser().getProfileImage().getLarge()).apply(new RequestOptions().transform(new RoundedCorners(16))).into(holder.profile);
+        }
         if (!checkNull(unSplash.getUrls().getFull())) {
-        Glide.with(context).load(unSplash.getUrls().getFull()).apply(new RequestOptions().override(600, 200)).into(holder.largeImage);}
+            Glide.with(context).load(unSplash.getUrls().getFull()).apply(new RequestOptions().override(600, 200)).into(holder.largeImage);
+        }
         holder.largeImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (!checkNull(unSplash.getUser().getBio())&&!checkNull(unSplash.getUrls().getFull())) {
+                if (!checkNull(unSplash.getUser().getBio()) && !checkNull(unSplash.getUrls().getFull())) {
                     Intent intent = new Intent(view.getContext(), ImageViewActivity.class);
                     intent.putExtra("url", unSplash.getUrls().getRegular());
                     intent.putExtra("bio", unSplash.getUser().getBio().toString());
                     view.getContext().startActivity(intent);
-                }else
-                    Toast.makeText(view.getContext(),"Empty fields",Toast.LENGTH_SHORT).show();
+                } else
+                    Toast.makeText(view.getContext(), "Empty fields", Toast.LENGTH_SHORT).show();
             }
         });
         holder.divSection.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
-                if (!checkNull(unSplash.getUser().getBio())&&!checkNull(unSplash.getUser().getUsername())&&!checkNull(unSplash.getUser().getProfileImage().getLarge())) {
+                if (!checkNull(unSplash.getUser().getBio()) && !checkNull(unSplash.getUser().getUsername()) && !checkNull(unSplash.getUser().getProfileImage().getLarge())) {
                     Intent intent = new Intent(view.getContext(), ProfileViewAcitvity.class);
                     intent.putExtra("url", unSplash.getUser().getProfileImage().getLarge());
                     intent.putExtra("name", unSplash.getUser().getUsername());
                     intent.putExtra("bio", unSplash.getUser().getBio().toString());
                     view.getContext().startActivity(intent);
-                }else
-                    Toast.makeText(view.getContext(),"Empty fields",Toast.LENGTH_SHORT).show();
+                } else
+                    Toast.makeText(view.getContext(), "Empty fields", Toast.LENGTH_SHORT).show();
 
             }
         });
